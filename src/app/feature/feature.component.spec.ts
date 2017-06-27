@@ -22,4 +22,11 @@ describe('FeatureComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title in a p tag', async(() => {
+    fixture = TestBed.createComponent(FeatureComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('feature works!');
+  }));
 });
