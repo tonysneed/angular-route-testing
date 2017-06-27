@@ -14,7 +14,7 @@ import { FeatureModule } from 'app/feature/feature.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FeatureModule
+    FeatureModule // Remove to enable lazy module loading
   ],
   providers: [],
   bootstrap: [AppComponent]

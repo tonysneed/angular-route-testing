@@ -122,6 +122,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 7. Enable lazy loading of the feature module.
 
+    _Note: We will need to refactor the tests to pass after enabling lazy module loading._
+
     * Remove `FeatureModule` from `AppModule`.
     * Change feature path in app routing module to load children.
     

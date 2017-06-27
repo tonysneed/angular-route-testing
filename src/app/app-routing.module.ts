@@ -7,6 +7,8 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'feature', component: FeatureComponent }
+  // Enable lazy module loading
+  // { path: 'feature', loadChildren: 'app/feature/feature.module#FeatureModule' }
 ];
 
 @NgModule({

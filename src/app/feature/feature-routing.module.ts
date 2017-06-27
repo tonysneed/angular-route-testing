@@ -4,6 +4,7 @@ import { FeatureComponent } from 'app/feature/feature.component';
 
 const routes: Routes = [
   { path: 'feature', component: FeatureComponent }
+  // { path: '', component: FeatureComponent } // Lazy loading
 ];
 
 @NgModule({
