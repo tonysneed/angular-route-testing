@@ -6,9 +6,8 @@ import { FeatureComponent } from 'app/feature/feature.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'feature', component: FeatureComponent }
-  // Enable lazy module loading
-  // { path: 'feature', loadChildren: 'app/feature/feature.module#FeatureModule' }
+  { path: 'feature', component: FeatureComponent },
+  { path: 'lazy', loadChildren: 'app/lazy-feature/lazy-feature.module#LazyFeatureModule' }
 ];
 
 @NgModule({
