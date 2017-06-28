@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LazyFeatureComponent } from 'app/lazy-feature/lazy-feature.component';
 
 import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +24,8 @@ describe('Router: App', () => {
             ],
             declarations: [
                 AppComponent,
-                DashboardComponent
+                DashboardComponent,
+                LazyFeatureComponent
             ],
             providers: [Location]
         }).compileComponents();
@@ -61,5 +63,16 @@ describe('Router: App', () => {
         expect(location.path()).toBe('/feature');
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('p').textContent).toContain('feature works!');
+    }));
+
+    // Fails with error: Cannot find module app/lazy-feature/lazy-feature.module#LazyFeatureModule
+    it('navigate to "lazy" redirects to /lazy', fakeAsync(() => {
+        const fixture = TestBed.createComponent(LazyFeatureComponent);
+        router.navigateByUrl('/lazy');
+        tick();
+        fixture.detectChanges();
+        expect(location.path()).toBe('/feature');
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('p').textContent).toContain('lazy feature works!');
     }));
 });
