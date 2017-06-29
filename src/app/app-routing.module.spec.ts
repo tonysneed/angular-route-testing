@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LazyFeatureComponent } from 'app/lazy-feature/lazy-feature.component';
@@ -66,13 +66,14 @@ describe('Router: App', () => {
     }));
 
     // Fails with error: Cannot find module app/lazy-feature/lazy-feature.module#LazyFeatureModule
-    it('navigate to "lazy" redirects to /lazy', fakeAsync(() => {
+    it('navigate to "lazy" redirects to /lazy', async(() => {
         const fixture = TestBed.createComponent(LazyFeatureComponent);
-        router.navigateByUrl('/lazy');
-        tick();
-        fixture.detectChanges();
-        expect(location.path()).toBe('/feature');
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('p').textContent).toContain('lazy feature works!');
+        router.navigateByUrl('/lazy'); // Error
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            expect(location.path()).toBe('/lazy'); // path is ''
+            const compiled = fixture.debugElement.nativeElement;
+            expect(compiled.querySelector('p').textContent).toContain('lazy feature works!');
+        });
     }));
 });
