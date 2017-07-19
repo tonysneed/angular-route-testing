@@ -1,5 +1,7 @@
+import { LazyFeatureModule } from './lazy-feature/lazy-feature.module';
 import { Location } from '@angular/common';
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { NgModuleFactoryLoader } from '@angular/core';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -8,6 +10,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeatureComponent } from './feature/feature.component';
 import { FeatureModule } from './feature/feature.module';
+import { LazyFeatureComponent } from './lazy-feature/lazy-feature.component';
 
 describe('Router: App', () => {
 
@@ -23,7 +26,7 @@ describe('Router: App', () => {
             ],
             declarations: [
                 AppComponent,
-                DashboardComponent
+                DashboardComponent,
             ],
             providers: [Location]
         }).compileComponents();
@@ -61,5 +64,20 @@ describe('Router: App', () => {
         expect(location.path()).toBe('/feature');
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('p').textContent).toContain('feature works!');
+    }));
+
+    it('navigate to "lazy" redirects to /lazy', fakeAsync(() => {
+        const loader = TestBed.get(NgModuleFactoryLoader);
+        loader.stubbedModules = {lazyModule: LazyFeatureModule};
+        const fixture = TestBed.createComponent(LazyFeatureComponent);
+        router.resetConfig([
+            { path: 'lazy', loadChildren: 'lazyModule' },
+        ]);
+        router.navigateByUrl('/lazy');
+        tick();
+        fixture.detectChanges();
+        expect(location.path()).toBe('/lazy');
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('p').textContent).toContain('lazy feature works!');
     }));
 });

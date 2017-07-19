@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FeatureComponent } from 'app/feature/feature.component';
+import { LazyFeatureComponent } from 'app/lazy-feature/lazy-feature.component';
 
 const routes: Routes = [
-  { path: 'feature', component: FeatureComponent }
+    { path: '', component: LazyFeatureComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FeatureRoutingModule { }
+export class LazyFeatureRoutingModule { }
